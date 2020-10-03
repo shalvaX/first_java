@@ -1,6 +1,12 @@
 package oop.java.c.SalaryCalculator;
+import java.io.IOException;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
 
-public class Calculator {
+public class Calculator extends Reader {
     private int salary;
     private int deductions;
     private int benefits;
@@ -8,7 +14,8 @@ public class Calculator {
 
     public Calculator(){}
 
-    public Calculator(int salary, int deductions, int benefits, String emp_id){
+    public Calculator(String file_name,int salary, int deductions, int benefits, String emp_id){
+        super(file_name);
         this.salary = salary;
         this.deductions = deductions;
         this.benefits = benefits;
@@ -39,5 +46,12 @@ public class Calculator {
     }
     public String getEmp_name() {
         return emp_id;
+    }
+
+    @Override
+    public String getPath(){
+        String name = getName();
+        String file_path = System.getProperty("user.dir")+name;
+        return file_path;
     }
 }
