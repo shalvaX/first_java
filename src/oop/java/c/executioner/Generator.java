@@ -1,6 +1,7 @@
-package oop.java.c;
+package oop.java.c.executioner;
 
 public class Generator {
+
 }
 /*
 ^public class name^ test = new ^public class name^(); - კლასის შექმნა
