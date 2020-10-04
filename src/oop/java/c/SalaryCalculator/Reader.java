@@ -1,4 +1,5 @@
 package oop.java.c.SalaryCalculator;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -25,19 +26,33 @@ public class Reader {
                 XSSFSheet sheet = wb.getSheet("Sheet1");
                 int rows = sheet.getPhysicalNumberOfRows();
                 XSSFRow r = sheet.getRow(0);
+                DataFormatter format = new DataFormatter();
                 int maxCell=  r.getLastCellNum();
-                for (int i=maxCell; i != 0; --i){
-                    int x = rows;
-                    --x;
-                    double value = sheet.getRow(x).getCell(i).getNumericCellValue();
-                    System.out.println(value);
-                    if (x == 1){x = rows;};
+                int x = rows-1;
+                int y = -1;
+                String kvalue = "";
+                while(true){
+                    ++y;
+                    Object value = format.formatCellValue(sheet.getRow(x).getCell(y));
+                    if (y != 0){
+                        kvalue += value+";";
+                    }
+
+                    if (y == maxCell){
+                        String key = format.formatCellValue(sheet.getRow(x).getCell(0));
+                        y = -1;
+                        --x;
+                        emp_salary.put(key,kvalue);
+                        kvalue = " ";
+                    }
+                    if (x == 0) {
+                        break;
+                    }
                 }
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println(file_path);
             return  emp_salary;
         }
         else {

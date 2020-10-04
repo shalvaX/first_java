@@ -9,8 +9,8 @@ public class Generator {
         Scanner find = new Scanner(System.in);
         System.out.println("choose file name:");
         name = find.nextLine();
-
         Reader r  = new Reader(name);
         r.readFile();
+        System.out.println(r.getEmp_salary());
     }
 }
