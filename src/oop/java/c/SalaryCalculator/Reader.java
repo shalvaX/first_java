@@ -7,73 +7,43 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
-public abstract class Reader {
+
+public  class Reader {
     private String file_name;
-    private int salary;
-    private int deductions;
-    private int benefits;
-    private String emp_id;
+    private Map<String, String> emp_salary = new HashMap<String,String>();
 
     public Reader(){}
 
-    public Reader(String file_name, int salary, int deductions, int benefits, String emp_id) {
-        this.file_name = file_name;
-        this.salary = salary;
-        this.deductions = deductions;
-        this.benefits = benefits;
-        this.emp_id = emp_id;
-    }
-
-    public void setName(String file_name) {
+    public Reader(String file_name) {
         this.file_name = file_name;
     }
-    public String getName() {
-        return file_name;
-    }
 
-    public abstract int calcSalary();
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-    public void setDeductions(int deductions) {
-        this.deductions = deductions;
-    }
-    public void setBenefits(int benefits) {
-        this.benefits = benefits;
-    }
-    public void setEmp_name(String emp_id) {
-        this.emp_id = emp_id;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-    public int getDeductions() {
-        return deductions;
-    }
-    public int getBenefits() {
-        return benefits;
-    }
-    public String getEmp_name() {
-        return emp_id;
-    }
-
-    public String readFile() {
-        Scanner find = new Scanner(System.in);
-        this.file_name = find.nextLine();
-        System.out.println("choose file name:");
-        String file_path = System.getProperty("user.dir")+file_name;
+    public String readFile() throws IOException {
+        String file_path = System.getProperty("user.dir")+"\\"+file_name;
         try {
             File file = new File(file_path);
             FileInputStream fis = new FileInputStream(file);
+            HSSFWorkbook wb=new HSSFWorkbook(fis);
+            HSSFSheet sheet=wb.getSheetAt(0);
+            FormulaEvaluator formulaEvaluator=wb.getCreationHelper().createFormulaEvaluator();
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
+        System.out.println(file_path);
         return file_path;
     }
+    public void setEmp_salary(){
+        this.emp_salary = emp_salary;
+    }
+    public Map <String, String> getEmp_salary(){
+        return emp_salary;
+    }
+
+    //Sheiqmnas dictionary rolmeic sheinaxavs emp_id stvis salary; benefit; deductions
+    //metodma daabrunos dict
 }
