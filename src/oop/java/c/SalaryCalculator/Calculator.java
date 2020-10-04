@@ -2,9 +2,9 @@ package oop.java.c.SalaryCalculator;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Calculator extends Reader {
-    private Map<String,String> coll_info;
-    private Map<Integer, Integer> calced_info;
+public class Calculator extends Reader {
+    private Map<String,String> coll_info = new HashMap<String,String>();;
+    private Map<Integer, Integer> calced_info = new HashMap<Integer, Integer>();;
 
     public Calculator() {
     }
@@ -27,5 +27,9 @@ public abstract class Calculator extends Reader {
         return calced_info;
     }
 
+    public Map<Integer, Integer> calcSalary(){
+        System.out.println(coll_info.get("12345678911"));
+        return calced_info;
+    }
 }
 

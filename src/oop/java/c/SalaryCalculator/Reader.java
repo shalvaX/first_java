@@ -28,24 +28,24 @@ public class Reader {
                 XSSFRow r = sheet.getRow(0);
                 DataFormatter format = new DataFormatter();
                 int maxCell=  r.getLastCellNum();
-                int x = rows-1;
-                int y = -1;
+                int crows = rows-1;
+                int ccels = -1;
                 String kvalue = "";
                 while(true){
-                    ++y;
-                    Object value = format.formatCellValue(sheet.getRow(x).getCell(y));
-                    if (y != 0){
+                    ++ccels;
+                    Object value = format.formatCellValue(sheet.getRow(crows).getCell(ccels));
+                    if (ccels != 0){
                         kvalue += value+";";
                     }
 
-                    if (y == maxCell){
-                        String key = format.formatCellValue(sheet.getRow(x).getCell(0));
-                        y = -1;
-                        --x;
+                    if (ccels == maxCell){
+                        String key = format.formatCellValue(sheet.getRow(crows).getCell(0));
+                        ccels = -1;
+                        --crows;
                         emp_salary.put(key,kvalue);
                         kvalue = " ";
                     }
-                    if (x == 0) {
+                    if (crows == 0) {
                         break;
                     }
                 }
