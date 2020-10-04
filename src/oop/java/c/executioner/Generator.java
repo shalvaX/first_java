@@ -1,6 +1,5 @@
 package oop.java.c.executioner;
 import oop.java.c.SalaryCalculator.Reader;
-
 import java.io.IOException;
 import java.util.Scanner;
 

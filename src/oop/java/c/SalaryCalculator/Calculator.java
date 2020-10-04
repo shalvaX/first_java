@@ -2,7 +2,7 @@ package oop.java.c.SalaryCalculator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Calculator extends Reader {
+public abstract class Calculator extends Reader {
     private Map<String, String> coll_info;
     private Map<String, String> calced_info;
 
