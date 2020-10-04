@@ -21,7 +21,7 @@ public  class Reader {
         this.file_name = file_name;
     }
 
-    public String readFile() throws IOException {
+    public String readFile()throws IOException{
         String file_path = System.getProperty("user.dir")+"\\"+file_name;
         try {
             File file = new File(file_path);
@@ -29,7 +29,27 @@ public  class Reader {
             HSSFWorkbook wb=new HSSFWorkbook(fis);
             HSSFSheet sheet=wb.getSheetAt(0);
             FormulaEvaluator formulaEvaluator=wb.getCreationHelper().createFormulaEvaluator();
-        }
+            for(Row row: sheet)     //iteration over row using for each loop
+            {
+                for(Cell cell: row)    //iteration over cell using for each loop
+                {
+                    switch(formulaEvaluator.evaluateInCell(cell).getCellType())
+                    {
+                        case Cell.CELL_TYPE_NUMERIC:   //field that represents numeric cell type
+//getting the value of the cell as a number
+                            System.out.print(cell.getNumericCellValue()+ "\t\t");
+                            break;
+                        case Cell.CELL_TYPE_STRING:    //field that represents string cell type
+//getting the value of the cell as a string
+                            System.out.print(cell.getStringCellValue()+ "\t\t");
+                            break;
+                    }
+                }
+                System.out.println();
+            }
+
+
+}
         catch(Exception e)
         {
             e.printStackTrace();
