@@ -3,6 +3,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +35,11 @@ public class Reader {
                 while(true){
                     ++ccels;
                     Object value = format.formatCellValue(sheet.getRow(crows).getCell(ccels));
-                    if (ccels != 0){
+                    if (ccels != 0 && ccels != maxCell-1){
                         kvalue += value+";";
                     }
-
-                    if (ccels == maxCell){
+                    if (ccels == maxCell-1){
+                        kvalue+=value;
                         String key = format.formatCellValue(sheet.getRow(crows).getCell(0));
                         ccels = -1;
                         --crows;
@@ -56,9 +57,22 @@ public class Reader {
             return  emp_salary;
         }
         else {
+            String file_path = System.getProperty("user.dir") + "\\" + "Generated.xlsx";
             try {
-                System.out.println("hi");
-            } catch (Exception e) {
+                XSSFWorkbook wb = new XSSFWorkbook();
+                XSSFSheet sheet = wb.createSheet("Sheet1");
+                XSSFRow rowhead = sheet.createRow((short)0);
+                rowhead.createCell(0).setCellValue("Employee_id");
+                rowhead.createCell(1).setCellValue("Age");
+                rowhead.createCell(2).setCellValue("Salary");
+                rowhead.createCell(3).setCellValue("Deductions");
+                rowhead.createCell(4).setCellValue("Benefits");
+                FileOutputStream fileOut = new FileOutputStream(file_path);
+                wb.write(fileOut);
+                fileOut.close();
+                wb.close();
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
             return emp_salary;
@@ -71,6 +85,4 @@ public class Reader {
         this.emp_salary = emp_salary;
     }
 
-    //Sheiqmnas dictionary rolmeic sheinaxavs emp_id stvis salary; benefit; deductions
-    //metodma daabrunos dict
 }
